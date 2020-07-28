@@ -1,0 +1,96 @@
+<div class="container">
+    <div *ngFor="let department of data;"
+        [style.background-color]="getBackgroundColor(department)"
+        [style.marginLeft.px]="getMarginLeft(department)"
+        [style.background-color]="getBackgroundColor(department)">
+
+        <div style="margin-bottom: 8px;" [style.padding.px]="getPadding(department)">
+            <input type="text" autocomplete="off" [value]="department.value" readonly style="margin-right: 10px;">
+
+            <button class="btn btn-add" (click)="onShowTemplate(department)" style="margin-right: 10px;">Add Department</button>
+
+            <button *ngIf="department.has_sub_category" class="btn btn-remove"
+                (click)="onRemoveRecord(department)">Remove Sub Departments
+            </button>
+        </div>
+
+        <div class="add-record-template" *ngIf="department.showTemplate">
+            <input type="text" autocomplete="off" #inputValue style="margin-right: 10px;">
+        
+            <button class="btn btn-add" (click)="onAddRecord(inputValue, hasSubCategory, department)" style="margin-right: 10px;">Save</button>
+    
+            <input type="checkbox" autocomplete="off" #hasSubCategory>Has Sub Category
+        </div>
+
+        <department-hierarchy-recursive [data]="department.children" [departments]="data" *ngIf="department.children"></department-hierarchy-recursive>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="container">
+    
+    <div style="width: 100%;" *ngIf="data.length == 0">
+        <ng-container *ngTemplateOutlet="addRecordTemplate; context:{parent: null, parent_id: null}"></ng-container>
+    </div>
+
+    <div *ngFor="let department of data; let i=index;" style="width: 100%">
+        <div
+            [style.background-color]="getBackgroundColor(department)"
+            [style.marginLeft.px]="getMarginLeft(department)"
+            [style.marginTop.px]="getMarginTop(department)"
+            style="width: 100%;">
+
+            <div>
+                <input type="text" autocomplete="off" [value]="department.value" readonly style="margin-right: 10px;">
+
+                <button class="btn btn-add" (click)="onShowTemplate(department)" style="margin-right: 10px;">Add Department</button>
+    
+                <button *ngIf="department.has_sub_category" class="btn btn-remove"
+                    (click)="onRemoveRecord(department)">Remove Sub Departments
+                </button>
+            </div>
+
+            <div *ngIf="department.showTemplate">
+                <ng-container *ngTemplateOutlet="addRecordTemplate; context: {parent: department, parent_id: i}"></ng-container>
+            </div>
+        </div>
+    </div>
+
+    <div style="background-color: lightgray; margin-top: 100px; font-size: 16px;">
+        <ng-container *ngFor="let dept of data">
+            {{ dept | json }}
+        </ng-container>
+    </div>
+</div>
+
+<ng-template #addRecordTemplate let-parent="parent" let-parent_id="parent_id">
+    <div>
+        <input type="text" autocomplete="off" #inputValue>
+    
+        <button class="btn btn-add" (click)="onAddRecord(inputValue, hasSubCategory, parent, parent_id)">Save</button>
+
+        <input type="checkbox" autocomplete="off" #hasSubCategory>Has Sub Category
+    </div>
+</ng-template> -->
